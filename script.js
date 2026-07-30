@@ -2,8 +2,8 @@ let debounceTimer;
 let fuse = null;
 let allData = [];
 
-// Endpoint de Bago
-const DATA_URL = 'https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/pdv_bago';
+// Endpoint de Bago (vía proxy de Railway)
+const DATA_URL = 'https://pdvbago-production.up.railway.app/api/bago/pdv';
 
 async function loadData() {
     try {
