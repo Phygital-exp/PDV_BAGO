@@ -8,6 +8,9 @@ const DATA_URL = 'https://pdvbago-production.up.railway.app/api/bago/pdv';
 async function loadData() {
     try {
         const response = await fetch(DATA_URL);
+        if (!response.ok) {
+            throw new Error(`El servidor respondió con estado ${response.status}`);
+        }
         const json = await response.json();
         allData = json.result || [];
         initializeFuse();
