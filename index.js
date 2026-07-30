@@ -23,7 +23,7 @@ app.get("/api/bago/pdv", async (req, res) => {
             const text = await response.text();
             console.error(`❌ Error HTTP ${response.status}:`, text);
             return res.status(response.status).json({ error: `Error ${response.status}: ${text.substring(0, 200)}` });
-        }
+        } 
 
         const data = await response.json();
         res.json(data);
