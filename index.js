@@ -12,19 +12,19 @@ const AUTH_HEADERS = {
 
 app.use(cors());
 
-app.get("/api/nutresa/pdv", async (req, res) => {
+app.get("/api/bago/pdv", async (req, res) => {
     try {
         const response = await fetch(
-            "https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/pdv_nutresa",
+            "https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/pdv_bago",
             { headers: AUTH_HEADERS }
         );
-        
+
         if (!response.ok) {
             const text = await response.text();
             console.error(`❌ Error HTTP ${response.status}:`, text);
             return res.status(response.status).json({ error: `Error ${response.status}: ${text.substring(0, 200)}` });
         }
-        
+
         const data = await response.json();
         res.json(data);
     } catch (err) {
@@ -37,7 +37,7 @@ app.get("/api/nutresa/pdv", async (req, res) => {
 app.get("/api/kimby/pdv", async (req, res) => {
     try {
         const response = await fetch(
-            "https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/pdv_nutresa",
+            "https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/pdv_bago",
             { headers: AUTH_HEADERS }
         );
         

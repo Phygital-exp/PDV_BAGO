@@ -1,7 +1,7 @@
 {
-  "name": "midea-proxy",
+  "name": "bago-proxy",
   "version": "1.0.0",
-  "description": "Proxy para Midea PDVs",
+  "description": "Proxy para Bago PDVs",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
