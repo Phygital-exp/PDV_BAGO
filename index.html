@@ -9,7 +9,7 @@
     <link rel="icon" href="" type="image/png">
 </head>
 <body>
-    <div class="search-container" role="search" aria-label="Buscador Bago de PDVs por Evento">
+    <div class="search-container" role="search" aria-label="Buscador Bago de PDVs">
         <h1 class="searchTitle"id="searchTitle">Búsqueda PDVs Bago</h1>
 
         <div style="text-align: center; margin-bottom: 15px;">
@@ -20,11 +20,7 @@
             <span id="darkModeLabel">🌙 Modo oscuro</span>
         </div>
 
-        <select id="eventSelect" onchange="updateEventSelection()" aria-label="Seleccionar evento">
-            <option value="">Selecciona un evento</option>
-        </select>
-
-        <input type="text" id="searchInput" placeholder="Ingresa palabra clave del PDV" oninput="handleInput()" aria-label="Campo de búsqueda" disabled>
+        <input type="text" id="searchInput" placeholder="Busca por PDV, ciudad, canal, cadena o zona" oninput="handleInput()" aria-label="Campo de búsqueda" disabled>
 
         <div id="results"></div>
     </div>

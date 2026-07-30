@@ -1,81 +1,31 @@
 let debounceTimer;
 let fuse = null;
 let allData = [];
-let fullData = [];
-let allEventos = [];
-let selectedEvento = null;
 
-// Endpoint directo
-// const DATA_URL = 'https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/pdv_nutresa';
-
-// Endpoint de Railway (proxy Bago)
-const DATA_URL = 'https://pdvnutresa-production.up.railway.app/api/nutresa/pdv';
-
-// Endpoints anteriores de Kimby (descomentar para usar):
-// const KIMBY_PDV_URL = 'https://kimby-production.up.railway.app/api/kimby/pdv';
+// Endpoint de Bago
+const DATA_URL = 'https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/pdv_bago';
 
 async function loadData() {
     try {
-        if (!allData.length) {
-            const response = await fetch(DATA_URL);
-            const json = await response.json();
-            allData = json.result || [];
-            extractEventos();
-            populateEventDropdown();
-        }
+        const response = await fetch(DATA_URL);
+        const json = await response.json();
+        allData = json.result || [];
+        initializeFuse();
+        document.getElementById('searchInput').disabled = false;
     } catch (error) {
         console.error("Error al cargar datos:", error);
         document.getElementById('results').innerHTML = `
-            <p style="color:red;"> No se pudo cargar la información. 
+            <p style="color:red;"> No se pudo cargar la información.
             Es posible que los permisos de CORS o el servidor estén bloqueando la conexión.</p>`;
-    }
-}
-
-function extractEventos() {
-    const eventosSet = new Set();
-    allData.forEach(item => {
-        if (item.EVENTO) {
-            eventosSet.add(item.EVENTO);
-        }
-    });
-    allEventos = Array.from(eventosSet).sort();
-}
-
-function populateEventDropdown() {
-    const eventSelect = document.getElementById('eventSelect');
-    eventSelect.innerHTML = '<option value="">Selecciona un evento</option>';
-    allEventos.forEach(evento => {
-        const option = document.createElement('option');
-        option.value = evento;
-        option.textContent = evento;
-        eventSelect.appendChild(option);
-    });
-}
-
-function updateEventSelection() {
-    const evento = document.getElementById('eventSelect').value;
-    const searchInput = document.getElementById('searchInput');
-    
-    selectedEvento = evento;
-    searchInput.value = '';
-    document.getElementById('results').innerHTML = '';
-    
-    if (evento) {
-        searchInput.disabled = false;
-        fullData = allData.filter(item => item.EVENTO === evento);
-        initializeFuse();
-    } else {
-        searchInput.disabled = true;
-        fullData = [];
     }
 }
 
 function initializeFuse() {
     const options = {
-        keys: ['SAP', 'PDV', 'CIUDAD', 'DIRECCION', 'MARCA'],
+        keys: ['PDV', 'CUIDAD', 'REGION', 'CANAL', 'CADENA', 'ZONA', 'KEY'],
         threshold: 0.3,
     };
-    fuse = new Fuse(fullData, options);
+    fuse = new Fuse(allData, options);
 }
 
 function handleInput() {
@@ -110,14 +60,19 @@ function renderResults(results) {
                         ${nombre}
                     </h3>
                     <div class="tags">
-                        ${result.CIUDAD ? `<span class="tag ciudad">${result.CIUDAD}</span>` : ''}
-                        ${result.MARCA ? `<span class="tag marca">${result.MARCA}</span>` : ''}
+                        ${result.CUIDAD ? `<span class="tag ciudad">${result.CUIDAD}</span>` : ''}
+                        ${result.CANAL ? `<span class="tag marca">${result.CANAL}</span>` : ''}
                     </div>
                     <ul>
-                        <li><strong>SAP:</strong> ${result.SAP}
-                            <i class="material-icons copy-icon" role="button" tabindex="0" aria-label="Copiar SAP" onclick="copyToClipboard('${result.SAP}')">content_copy</i>
+                        <li><strong>ID:</strong> ${result.ID}
+                            <i class="material-icons copy-icon" role="button" tabindex="0" aria-label="Copiar ID" onclick="copyToClipboard('${result.ID}')">content_copy</i>
                         </li>
-                        <li><strong>Dirección:</strong> ${result.DIRECCION || 'N/A'}</li>
+                        <li><strong>Región:</strong> ${result.REGION || 'N/A'}</li>
+                        <li><strong>Ciudad:</strong> ${result.CUIDAD || 'N/A'}</li>
+                        <li><strong>Cadena:</strong> ${result.CADENA || 'N/A'}</li>
+                        <li><strong>Zona:</strong> ${result.ZONA || 'N/A'}</li>
+                        <li><strong>SK Punto Venta:</strong> ${result.SKPuntoVenta || 'N/A'}</li>
+                        <li><strong>Key:</strong> ${result.KEY || 'N/A'}</li>
                     </ul>
                 </div>
             `;
@@ -132,10 +87,10 @@ function renderResults(results) {
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
         .then(() => {
-            alert('SAP copiado al portapapeles');
+            alert('ID copiado al portapapeles');
         })
         .catch(err => {
-            alert('Error al copiar el SAP');
+            alert('Error al copiar el ID');
             console.error('Error:', err);
         });
 }
