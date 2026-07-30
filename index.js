@@ -29,6 +29,7 @@ async function fetchPdvData(res, url) {
             return res.status(response.status).json({ error: `Error ${response.status}: ${text.substring(0, 200)}` });
         }
 
+        
         const data = await response.json();
         res.json(data);
     } catch (err) {
