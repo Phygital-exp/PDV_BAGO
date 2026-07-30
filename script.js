@@ -8,7 +8,7 @@ let selectedEvento = null;
 // Endpoint directo
 // const DATA_URL = 'https://botai.smartdataautomation.com/api_backend_ai/dinamic-db/report/119/pdv_nutresa';
 
-// Endpoint de Railway (proxy Nutresa)
+// Endpoint de Railway (proxy Bago)
 const DATA_URL = 'https://pdvnutresa-production.up.railway.app/api/nutresa/pdv';
 
 // Endpoints anteriores de Kimby (descomentar para usar):
