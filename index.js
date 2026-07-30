@@ -14,6 +14,7 @@ const BAGO_URL = "https://botai.smartdataautomation.com/api_backend_ai/dinamic-d
 
 app.use(cors());
 
+
 async function fetchPdvData(res, url) {
     try {
         const response = await fetch(url, { headers: AUTH_HEADERS });
