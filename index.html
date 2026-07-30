@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador Nutresa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="" type="image/png">
+</head>
+<body>
+    <div class="search-container" role="search" aria-label="Buscador Nutresa de PDVs por Evento">
+        <h1 class="searchTitle"id="searchTitle">Búsqueda PDVs Nutresa</h1>
+
+        <div style="text-align: center; margin-bottom: 15px;">
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                <span class="slider"></span>
+            </label>
+            <span id="darkModeLabel">🌙 Modo oscuro</span>
+        </div>
+
+        <select id="eventSelect" onchange="updateEventSelection()" aria-label="Seleccionar evento">
+            <option value="">Selecciona un evento</option>
+        </select>
+
+        <input type="text" id="searchInput" placeholder="Ingresa palabra clave del PDV" oninput="handleInput()" aria-label="Campo de búsqueda" disabled>
+
+        <div id="results"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+</body>
+</html>
